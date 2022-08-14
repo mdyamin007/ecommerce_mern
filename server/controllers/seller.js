@@ -4,7 +4,7 @@ const createSeller = async (req, res) => {
   try {
     const seller = req.body;
     const createdSeller = await sellerService.createSeller(seller);
-    req.status(201).json({
+    res.status(201).json({
       message: "Seller created successfully",
       seller: createdSeller,
     });
@@ -29,7 +29,23 @@ const findAll = async (req, res) => {
   }
 };
 
+const findById = async (req, res) => {
+  try {
+    const sellerId = req.params.sellerId;
+    const seller = await sellerService.findById(sellerId);
+    res.status(200).json({
+      message: "Seller fetched successfully",
+      seller,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
 module.exports = {
   createSeller,
   findAll,
+  findById,
 };

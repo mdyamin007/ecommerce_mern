@@ -8,4 +8,6 @@ router
   .get(sellerController.findAll)
   .post(sellerController.createSeller);
 
+router.route("/:sellerId").get(sellerController.findById);
+
 module.exports = router;

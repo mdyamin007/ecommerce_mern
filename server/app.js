@@ -30,6 +30,9 @@ if (isProduction) {
   mongoose.set("debug", true);
 }
 
+// routers
+app.use("/api/v1/seller", sellerRouter);
+
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error("Not Found");
@@ -67,9 +70,6 @@ app.use(function (err, req, res, next) {
     },
   });
 });
-
-// routers
-app.use("/api/v1/seller", sellerRouter);
 
 // finally, let's start our server...
 const server = app.listen(process.env.PORT || 5000, function () {

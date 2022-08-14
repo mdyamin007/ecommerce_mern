@@ -8,6 +8,7 @@ const SellerSchema = new mongoose.Schema({
   sellerEmail: {
     type: String,
     required: true,
+    unique: true,
   },
   sellerPhone: {
     type: String,
