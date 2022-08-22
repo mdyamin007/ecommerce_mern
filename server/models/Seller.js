@@ -24,6 +24,11 @@ const SellerSchema = new mongoose.Schema({
   sellerDescription: {
     type: String,
   },
+  status: {
+    type: String,
+    required: true,
+    default: "unverified",
+  },
 });
 
 const Seller = mongoose.model("Seller", SellerSchema);
