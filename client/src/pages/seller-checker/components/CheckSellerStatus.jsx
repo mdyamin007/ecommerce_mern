@@ -10,7 +10,7 @@ const CheckSellerStatus = () => {
   const [sellerDetails, setSellerDetails] = useState(null);
 
   const dispatch = useDispatch();
-  const { seller } = useSelector((state) => state.seller);
+  const { seller, isError } = useSelector((state) => state.seller);
 
   const handleCheck = () => {
     dispatch(getSellerStatus(sellerId));
@@ -41,18 +41,25 @@ const CheckSellerStatus = () => {
         Check
       </button>
 
-      {sellerDetails && (
+      {isError && (
+        <div className="border p-20 mt-10 flex flex-col items-center justify-center">
+          <img src={CrossMark} className="h-20 w-20" alt="Cross mark" />
+          <p className="text-4xl mt-4 text-red-500">The seller not found!</p>
+        </div>
+      )}
+
+      {sellerDetails && !isError && (
         <div className="border p-20 mt-10 flex flex-col items-center justify-center">
           {sellerDetails.status === "verified" ? (
             <>
-              <img src={TickMark} className="h-24 w-24" />
+              <img src={TickMark} className="h-24 w-24" alt="Tick mark" />
               <p className="text-4xl mt-4 text-green-500">
                 The seller is {sellerDetails.status}
               </p>
             </>
           ) : (
             <>
-              <img src={CrossMark} className="h-20 w-20" />
+              <img src={CrossMark} className="h-20 w-20" alt="Cross mark" />
               <p className="text-4xl mt-4 text-red-500">
                 The seller is not verified!
               </p>
