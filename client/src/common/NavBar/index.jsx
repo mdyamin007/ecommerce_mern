@@ -12,10 +12,12 @@ const NavBar = () => {
           </h1>
         </div>
       </Link>
-      <nav>
+      <nav className="flex space-x-4 justify-center items-center">
         <Link to="/seller-checker">
-          <div className="text-teal-500">Check Seller</div>
+          <div className="text-teal-500 mr-2">Check Seller</div>
         </Link>
+        <div className="px-4 py-2 bg-blue-600 text-white rounded">Login</div>
+        <div className="px-4 py-2 bg-red-600 text-white rounded">Sign up</div>
       </nav>
     </nav>
   );
