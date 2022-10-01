@@ -6,7 +6,7 @@ const NavBar = () => {
     <nav className="w-full flex justify-between items-center px-20 py-3 shadow">
       <Link to="/">
         <div className="flex justify-center items-center">
-          <img src={Logo} className="h-12 w-12 mx-5" />
+          <img src={Logo} className="h-12 w-12 mx-5" alt="logo" />
           <h1 className="text-4xl font-semibold text-teal-500 font-serif">
             Safe Market
           </h1>
@@ -16,7 +16,9 @@ const NavBar = () => {
         <Link to="/seller-checker">
           <div className="text-teal-500 mr-2">Check Seller</div>
         </Link>
-        <div className="px-4 py-2 bg-blue-600 text-white rounded">Login</div>
+        <Link to="/login">
+          <div className="px-4 py-2 bg-blue-600 text-white rounded">Login</div>
+        </Link>
         <div className="px-4 py-2 bg-red-600 text-white rounded">Sign up</div>
       </nav>
     </nav>
