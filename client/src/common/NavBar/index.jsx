@@ -19,7 +19,9 @@ const NavBar = () => {
         <Link to="/login">
           <div className="px-4 py-2 bg-blue-600 text-white rounded">Login</div>
         </Link>
-        <div className="px-4 py-2 bg-red-600 text-white rounded">Sign up</div>
+        <Link to="/register">
+          <div className="px-4 py-2 bg-red-600 text-white rounded">Sign up</div>
+        </Link>
       </nav>
     </nav>
   );
