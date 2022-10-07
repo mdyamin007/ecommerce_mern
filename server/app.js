@@ -3,6 +3,7 @@ const cors = require("cors");
 const errorhandler = require("errorhandler");
 const mongoose = require("mongoose");
 const sellerRouter = require("./routers/seller");
+const userRouter = require("./routers/user");
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -32,6 +33,7 @@ if (isProduction) {
 
 // routers
 app.use("/api/v1/seller", sellerRouter);
+app.use("/api/v1/user", userRouter);
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
