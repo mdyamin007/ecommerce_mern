@@ -1,8 +1,32 @@
 import Photo from "../../../assets/images/draw2.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login, reset } from "../../../redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [data, setData] = useState();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (user || isSuccess) {
+      if (user.userType === "admin") navigate("/admin_dashboard");
+      else navigate("/");
+    }
+
+    return () => dispatch(reset());
+  }, [isError, message, isSuccess]);
 
   const handleChange = (e) => {
     setData((prevState) => ({
@@ -14,6 +38,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
+    dispatch(login(data));
   };
 
   return (
@@ -67,9 +92,10 @@ const LoginForm = () => {
 
               <button
                 type="submit"
-                className="inline-block px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                className="inline-block px-7 py-3 bg-green-600  text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-full disabled:opacity-75"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
+                disabled={isLoading}
               >
                 Sign in
               </button>

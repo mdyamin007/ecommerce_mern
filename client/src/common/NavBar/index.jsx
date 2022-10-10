@@ -1,7 +1,17 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo.jpg";
+import { logout } from "../../redux/features/auth/authSlice";
 
 const NavBar = () => {
+  const { user } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    dispatch(logout());
+  };
+
   return (
     <nav className="w-full flex justify-between items-center px-20 py-3 shadow">
       <Link to="/">
@@ -16,12 +26,27 @@ const NavBar = () => {
         <Link to="/seller-checker">
           <div className="text-teal-500 mr-2">Check Seller</div>
         </Link>
-        <Link to="/login">
-          <div className="px-4 py-2 bg-blue-600 text-white rounded">Login</div>
-        </Link>
-        <Link to="/register">
-          <div className="px-4 py-2 bg-red-600 text-white rounded">Sign up</div>
-        </Link>
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-600 text-white rounded"
+          >
+            Log out
+          </button>
+        ) : (
+          <>
+            <Link to="/login">
+              <div className="px-4 py-2 bg-blue-600 text-white rounded">
+                Login
+              </div>
+            </Link>
+            <Link to="/register">
+              <div className="px-4 py-2 bg-red-600 text-white rounded">
+                Sign up
+              </div>
+            </Link>
+          </>
+        )}
       </nav>
     </nav>
   );
