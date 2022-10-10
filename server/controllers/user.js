@@ -42,4 +42,34 @@ const findAll = async (req, res, next) => {
   }
 };
 
-module.exports = { signUp, findAll };
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await UserService.findOne({ email });
+
+    if (!user) {
+      return res.status(400).send({ message: "User not found!" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).send({ message: "Password mismatch!" });
+    }
+
+    const token = await user.generateAuthToken();
+    res.status(200).send({
+      message: "Logged in successfully!",
+      userId: user._id,
+      userType: user.userType,
+      authToken: `Bearer ${token}`,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: err,
+    });
+  }
+};
+
+module.exports = { signUp, findAll, login };

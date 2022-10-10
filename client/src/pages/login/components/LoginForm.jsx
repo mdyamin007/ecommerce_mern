@@ -1,7 +1,21 @@
 import Photo from "../../../assets/images/draw2.svg";
-import React from "react";
+import { useState } from "react";
 
 const LoginForm = () => {
+  const [data, setData] = useState();
+
+  const handleChange = (e) => {
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+  };
+
   return (
     <section className="h-screen">
       <div className="container px-6 py-12 h-full">
@@ -11,12 +25,15 @@ const LoginForm = () => {
           </div>
           <div className="md:w-8/12 lg:w-5/12 lg:ml-20">
             <h1 className="text-4xl mb-10 text-center font-light">Log in</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <input
                   type="text"
                   className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   placeholder="Email address"
+                  value={data?.email}
+                  name="email"
+                  onChange={handleChange}
                 />
               </div>
 
@@ -25,6 +42,9 @@ const LoginForm = () => {
                   type="password"
                   className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   placeholder="Password"
+                  name="password"
+                  value={data?.password}
+                  onChange={handleChange}
                 />
               </div>
 
